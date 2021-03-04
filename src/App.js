@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { loadState, saveState } from './utils/localstorage'
+import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom'
 
 import LoginView from './views/LoginView'
 import TranslationView from './views/TranslationView'
@@ -8,28 +9,34 @@ import LogoutView from './views/LogoutView'
 // import logo from './logo.svg';
 import './App.css'
 
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route
-} from 'react-router-dom'
-
 function App () {
+  /* CONSTANTS */
+  const TRANSLATIONS_TO_KEEP = 10
+
   /* STATE */
   const [user, setUser] = useState('')
+  const [translations, setTranslation] = useState([])
 
   /* LIFECYCLE */
   useEffect(() => {
     return () => {
       console.log('saving user: ' + user)
       if (user) {
-        saveState({ user })
+        saveState({ user, translations })
       }
     }
   })
+
   /* EVENT HANDLERS */
   const handleUserChange = (name) => {
     setUser(name)
+  }
+
+  const handleNewTranslation = (inputString) => {
+    // Add the new translation string to the front and remove the last element
+    // without modifying the current state of the array in place
+    setTranslation([inputString, ...translations.slice(0, TRANSLATIONS_TO_KEEP - 1)])
+    saveState({ user, translations })
   }
 
   /* KINDA SORTA "PRE RENDER" */
@@ -51,7 +58,7 @@ function App () {
             <img src="Splash.svg" alt="" className="underlay" />
           </div>}
           <h1>Lost in Translation</h1>
-          {user && <p>logged in as {user}</p>}
+          {user && <div><p>logged in as {user}</p><Link to="/logout">Logout</Link></div>}
         </header>
 
         <Switch>
@@ -62,7 +69,7 @@ function App () {
             <LogoutView user={user} changeUser={handleUserChange} />
           </Route>
           <Route path="/">
-            <TranslationView user={user} />
+            <TranslationView user={user} addTranslation={handleNewTranslation}/>
           </Route>
         </Switch>
 
