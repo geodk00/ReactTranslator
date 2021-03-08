@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { /* loadState, */ loadState, saveState } from './utils/localstorage'
+import { loadState, saveState } from './utils/localstorage'
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom'
 
 import LoginView from './views/LoginView'
@@ -7,8 +7,27 @@ import TranslationView from './views/TranslationView'
 import LogoutView from './views/LogoutView'
 import ProfileView from './views/ProfileView'
 
-// import logo from './logo.svg';
 import './App.css'
+
+/*
+  Main Component. Contains routes and core application state.
+
+  STATE: user
+  'user' is the "logged" in user and is passed down as a prop to routes
+  that require a logged in user.
+  if 'user' is not set, the component will try to load it from localStorage.
+  'user' is set from LoginView via the handler method handleUserChange and reset
+  in LogoutView via the same method.
+  'user' is saved to localStorage on login (in LoginView)
+
+  STATE: translations
+  an array of translations. translations[0] is the current translations and
+  translations will only grow to a length of TRANSLATIONS_TO_KEEP.
+  Translations are added in TranslationView via the handler method handleNewTranslation and
+  reset in LogoutView via resetTranslations.
+  'translations' is initially saved to localStorage on login (in LoginView) and
+  then every time handleNewTranslations is called.
+*/
 
 function App () {
   /* CONSTANTS */
@@ -20,23 +39,25 @@ function App () {
 
   /* LIFECYCLE */
   useEffect(() => {
+    /* Try to load user from localStorage if user is not set */
     if (!user) {
-      console.log('No user')
       const loadUser = loadState('user')
-      const loadTranslations = loadState('translations')
       if (loadUser) {
         setUser(loadUser)
-        setTranslations(loadTranslations || [])
+        /* translations are set on login and "always" available if there is a saved user (unless the user manually deletes them...) */
+        setTranslations(loadState('translations'))
       }
     }
-  }, [user, translations])
+  })
 
   /* EVENT HANDLERS */
+
+  /* Used in LoginView and LogoutView */
   const handleUserChange = (name) => {
-    console.log('set user to: ' + name)
     setUser(name)
   }
 
+  /* Used in TranslationView */
   const handleNewTranslation = (inputString) => {
     // Add the new translation string to the front and remove the last element
     // without modifying the current state of the array in place
@@ -45,7 +66,8 @@ function App () {
     saveState('translations', newTranslations)
   }
 
-  const resetTransLations = () => {
+  /* Used in LogoutView */
+  const resetTranslations = () => {
     setTranslations([])
   }
   return (
@@ -65,7 +87,7 @@ function App () {
             <LoginView onLogin={handleUserChange} />
           </Route>
           <Route path="/logout">
-            <LogoutView user={user} changeUser={handleUserChange} resetTranslations={resetTransLations}/>
+            <LogoutView user={user} changeUser={handleUserChange} resetTranslations={resetTranslations}/>
           </Route>
           <Route path="/profile">
             <ProfileView user={user} />
@@ -74,22 +96,6 @@ function App () {
             <TranslationView user={user} addTranslation={handleNewTranslation} currentTranslation={translations[0] || ''}/>
           </Route>
         </Switch>
-
-        {/*
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header> */}
       </div>
     </Router>
   )
