@@ -1,13 +1,18 @@
 import { Redirect } from 'react-router-dom'
 import { loadState } from '../utils/localstorage'
 
+/*
+  HOC to guard components that require the user to be logged
+  in.
+*/
+
 const ProtectedComponent = Component => props => {
-  const user = props.user
-  console.log('protected username: ' + user)
+  /* PROPS */
+  const { user } = props
 
-  const llUser = user || loadState('user')
-
-  if (llUser) {
+  // let the user through if there's a user saved in localStorage and let
+  // a different component load and set the state properly
+  if (user || loadState('user')) {
     return <Component {...props} />
   } else {
     return <Redirect to="/login" />

@@ -1,11 +1,22 @@
 import PropTypes from 'prop-types'
 import { useState, useEffect } from 'react'
 
-const TranslationDisplayComponent = (props) => {
-  const translation = props.translation
+/*
+  Component that will take a string and convert it to
+  hand images.
 
+  The string will be converted to lower case and stripped of anything
+  but the characters a-z
+*/
+
+const TranslationDisplayComponent = (props) => {
+  /* PROPS */
+  const { translation } = props
+
+  /* STATE */
   const [translationImages, setTranslationImages] = useState([])
 
+  /* LIFECYCLE */
   useEffect(() => {
     const letters = Array
       .from(translation.toLowerCase())
