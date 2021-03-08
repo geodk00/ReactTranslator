@@ -1,7 +1,9 @@
 
-const loadState = () => {
+const loadState = (key) => {
   try {
-    const serializedState = window.localStorage.getItem('state')
+    console.log('loading key: ' + key)
+
+    const serializedState = window.localStorage.getItem(key)
     if (serializedState === null) {
       return undefined
     }
@@ -11,18 +13,22 @@ const loadState = () => {
   }
 }
 
-const saveState = (state) => {
+const saveState = (key, state) => {
   try {
+    console.log('Saving key: ' + key)
+    console.log('Saving state: ' + state)
+
     const serializedState = JSON.stringify(state)
-    window.localStorage.setItem('state', serializedState)
+    window.localStorage.setItem(key, serializedState)
   } catch (err) {
     console.log(err)
   }
 }
 
-const removeState = () => {
+const removeState = (key) => {
   try {
-    window.localStorage.removeItem('state')
+    console.log('Removing state with key: ' + key)
+    window.localStorage.removeItem(key)
   } catch (err) {
     console.log(err)
   }

@@ -1,6 +1,7 @@
-import { useState } from 'react'
 import PropTypes from 'prop-types'
 import { useHistory } from 'react-router-dom'
+import { saveState } from '../utils/localstorage'
+import { useState } from 'react'
 
 const LoginView = (props) => {
   /* PROPS */
@@ -14,6 +15,8 @@ const LoginView = (props) => {
   }
 
   const handleSubmit = (event) => {
+    saveState('user', username)
+    saveState('translations', [])
     props.onLogin(username)
     history.push('/')
   }

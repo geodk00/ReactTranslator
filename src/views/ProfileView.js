@@ -8,7 +8,7 @@ import ProtectedComponent from '../components/ProtectedComponent'
 const ProfileView = (props) => {
   const [currentTranslation, setCurrentTranslation] = useState('')
 
-  const translations = loadState().translations.map((val, key) => { return <li onClick={event => setCurrentTranslation(event.target.innerText) } key={key}>{val}</li> })
+  const translations = loadState('translations').map((val, key) => { return <li onClick={event => setCurrentTranslation(event.target.innerText) } key={key}>{val}</li> })
   return (
     <div>
       <Link to="/logout">Logout</Link>

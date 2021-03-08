@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { loadState, saveState } from './utils/localstorage'
+import { /* loadState, */ loadState, saveState } from './utils/localstorage'
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom'
 
 import LoginView from './views/LoginView'
@@ -16,38 +16,32 @@ function App () {
 
   /* STATE */
   const [user, setUser] = useState('')
-  const [translations, setTranslation] = useState([])
+  const [translations, setTranslations] = useState([])
 
   /* LIFECYCLE */
   useEffect(() => {
-    return () => {
-      console.log('saving user: ' + user)
-      if (user) {
-        saveState({ user, translations })
+    if (!user) {
+      console.log('No user')
+      const loadUser = loadState('user')
+      const loadTranslations = loadState('translations')
+      if (loadUser) {
+        setUser(loadUser)
+        setTranslations(loadTranslations || [])
       }
     }
-  })
+  }, [user, translations])
 
   /* EVENT HANDLERS */
   const handleUserChange = (name) => {
+    console.log('set user to: ' + name)
     setUser(name)
   }
 
   const handleNewTranslation = (inputString) => {
     // Add the new translation string to the front and remove the last element
     // without modifying the current state of the array in place
-    setTranslation([inputString, ...translations.slice(0, TRANSLATIONS_TO_KEEP - 1)])
-    saveState({ user, translations })
-  }
-
-  /* KINDA SORTA "PRE RENDER" */
-  if (!user) {
-    const savedState = loadState()
-    console.log('Loading user: ')
-    console.log(savedState)
-    if (savedState) {
-      setUser(savedState.user)
-    }
+    setTranslations([inputString, ...translations.slice(0, TRANSLATIONS_TO_KEEP - 1)])
+    saveState('translations', translations)
   }
 
   return (
@@ -73,7 +67,7 @@ function App () {
             <ProfileView user={user} />
           </Route>
           <Route path="/">
-            <TranslationView user={user} addTranslation={handleNewTranslation} currentTranslation={translations[0]}/>
+            <TranslationView user={user} addTranslation={handleNewTranslation} currentTranslation={translations[0] || ''}/>
           </Route>
         </Switch>
 
