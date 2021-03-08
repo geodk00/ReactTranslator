@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom'
 import LoginView from './views/LoginView'
 import TranslationView from './views/TranslationView'
 import LogoutView from './views/LogoutView'
+import ProfileView from './views/ProfileView'
 
 // import logo from './logo.svg';
 import './App.css'
@@ -58,7 +59,7 @@ function App () {
             <img src="Splash.svg" alt="" className="underlay" />
           </div>}
           <h1>Lost in Translation</h1>
-          {user && <div><p>logged in as {user}</p><Link to="/logout">Logout</Link></div>}
+          {user && <div><p>logged in as <Link to="/profile">{user}</Link></p></div>}
         </header>
 
         <Switch>
@@ -67,6 +68,9 @@ function App () {
           </Route>
           <Route path="/logout">
             <LogoutView user={user} changeUser={handleUserChange} />
+          </Route>
+          <Route path="/profile">
+            <ProfileView user={user} />
           </Route>
           <Route path="/">
             <TranslationView user={user} addTranslation={handleNewTranslation} currentTranslation={translations[0]}/>
