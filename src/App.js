@@ -69,7 +69,7 @@ function App () {
             <LogoutView user={user} changeUser={handleUserChange} />
           </Route>
           <Route path="/">
-            <TranslationView user={user} addTranslation={handleNewTranslation}/>
+            <TranslationView user={user} addTranslation={handleNewTranslation} currentTranslation={translations[0]}/>
           </Route>
         </Switch>
 
