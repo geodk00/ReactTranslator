@@ -3,17 +3,25 @@ import { useHistory } from 'react-router-dom'
 import { saveState } from '../utils/localstorage'
 import { useState } from 'react'
 
+/*
+  View responsible for logging in the user.
+  Will move the user to / on login.
+*/
+
 const LoginView = (props) => {
-  /* PROPS */
+  /* STATE */
   const [username, setUsername] = useState('')
 
   /* HOOKS */
   const history = useHistory()
 
+  /* EVENT HANDLERS */
+
   const handleChange = (event) => {
     setUsername(event.target.value)
   }
 
+  /* Save to localStorage before sending to / */
   const handleSubmit = (event) => {
     saveState('user', username)
     saveState('translations', [])
