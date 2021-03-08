@@ -5,12 +5,14 @@ import { removeState } from '../utils/localstorage'
 import ProtectedComponent from '../components/ProtectedComponent'
 
 const LogoutView = (props) => {
-  const changeUser = props.changeUser
+  const { changeUser } = props
+  const { resetTranslations } = props
 
   useEffect(() => {
     removeState('user')
     removeState('translations')
     changeUser(null)
+    resetTranslations()
   }, [])
 
   return (
@@ -22,4 +24,5 @@ const LogoutView = (props) => {
 }
 
 LogoutView.propTypes = { changeUser: PropTypes.func.isRequired }
+LogoutView.propTypes = { resetTranslations: PropTypes.func.isRequired }
 export default ProtectedComponent(LogoutView)

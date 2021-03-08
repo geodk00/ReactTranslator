@@ -40,10 +40,14 @@ function App () {
   const handleNewTranslation = (inputString) => {
     // Add the new translation string to the front and remove the last element
     // without modifying the current state of the array in place
-    setTranslations([inputString, ...translations.slice(0, TRANSLATIONS_TO_KEEP - 1)])
-    saveState('translations', translations)
+    const newTranslations = [inputString, ...translations.slice(0, TRANSLATIONS_TO_KEEP - 1)]
+    setTranslations(newTranslations)
+    saveState('translations', newTranslations)
   }
 
+  const resetTransLations = () => {
+    setTranslations([])
+  }
   return (
     <Router>
       <div className="App">
@@ -61,7 +65,7 @@ function App () {
             <LoginView onLogin={handleUserChange} />
           </Route>
           <Route path="/logout">
-            <LogoutView user={user} changeUser={handleUserChange} />
+            <LogoutView user={user} changeUser={handleUserChange} resetTranslations={resetTransLations}/>
           </Route>
           <Route path="/profile">
             <ProfileView user={user} />
