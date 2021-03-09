@@ -1,18 +1,19 @@
 import { PropTypes } from 'prop-types'
 import { Link } from 'react-router-dom'
 
+import FaceIcon from './icons/FaceIcon'
+
+import './HeaderComponent.css'
+
 const HeaderComponent = (props) => {
   /* PROPS */
   const { user } = props
 
   return (
     <header>
-          {user && <div className="img-overlay-wrap">
-            <img src="Logo.png" alt="Logo" className="header-logo" />
-            <img src="Splash.svg" alt="" className="underlay" />
-          </div>}
+          <img src="Logo.png" alt="Logo" className="header-logo" />
           <h1>Lost in Translation</h1>
-          {user && <div><p>logged in as <Link to="/profile">{user}</Link></p></div>}
+          {user && <div className="user-box"><Link to="/profile"><FaceIcon /><p>{user}</p></Link></div>}
       </header>
   )
 }

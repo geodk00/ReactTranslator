@@ -3,6 +3,10 @@ import ProtectedComponent from '../components/ProtectedComponent'
 import TranslationDisplayComponent from '../components/TranslationDisplayComponent'
 import { useState } from 'react'
 
+import ArrowRightIcon from '../components/icons/ArrowRightIcon'
+
+import './TranslationView.css'
+
 /*
   Main view of the app.
   Responsible for taking input from the user and sending it
@@ -29,11 +33,17 @@ const TranslationView = (props) => {
   }
 
   return (
+    <main className="translation-box">
         <div>
+          <form>
+            <div>
             <input type="text" onChange={handleChange}></input>
-            <button onClick={handleSubmit}>Translate</button>
+            <ArrowRightIcon onClick={handleSubmit}/>
+            </div>
+          </form>
             {currentTranslation && <TranslationDisplayComponent translation={currentTranslation} />}
         </div>
+      </main>
   )
 }
 

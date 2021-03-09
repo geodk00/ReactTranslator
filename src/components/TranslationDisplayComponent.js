@@ -26,7 +26,7 @@ const TranslationDisplayComponent = (props) => {
     setTranslationImages(letters)
   }, [translation])
 
-  return (<div>{translationImages}</div>)
+  return (<div className="translation-display">{translationImages}</div>)
 }
 
 TranslationDisplayComponent.propTypes = { translation: PropTypes.string.isRequired }

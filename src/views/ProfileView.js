@@ -5,9 +5,10 @@ import PropTypes from 'prop-types'
 import TranslationDisplayComponent from '../components/TranslationDisplayComponent'
 import ProtectedComponent from '../components/ProtectedComponent'
 
+import './ProfileView.css'
 /*
   View Responsible for displaying the translation history
-  and let the user log out.
+  and letting the user log out.
 
   Logging out is handled by LogoutView
 */
@@ -23,13 +24,17 @@ const ProfileView = (props) => {
   const translationsList = translations.map((val, key) => { return <li onClick={event => setCurrentTranslation(event.target.innerText) } key={key}>{val}</li> })
 
   return (
-    <div>
+    <main className="profile-box">
+      <div>
       <Link to="/logout">Logout</Link>
-      <ul>
-        {translationsList}
-      </ul>
-      <TranslationDisplayComponent translation={currentTranslation} />
-    </div>
+        <div className="history-container">
+        <ul>
+          {translationsList}
+        </ul>
+        <TranslationDisplayComponent translation={currentTranslation} />
+        </div>
+      </div>
+    </main>
   )
 }
 

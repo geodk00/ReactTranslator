@@ -3,6 +3,9 @@ import { useHistory } from 'react-router-dom'
 import { saveState } from '../utils/localstorage'
 import { useState } from 'react'
 
+import ArrowRightIcon from '../components/icons/ArrowRightIcon'
+
+import './LoginView.css'
 /*
   View responsible for logging in the user.
   Will move the user to / on login.
@@ -21,7 +24,7 @@ const LoginView = (props) => {
     setUsername(event.target.value)
   }
 
-  /* Save to localStorage before sending to / */
+  /* Save to localStorage before sending to '/' */
   const handleSubmit = (event) => {
     saveState('user', username)
     saveState('translations', [])
@@ -30,13 +33,20 @@ const LoginView = (props) => {
   }
 
   return (
-    <div>Login View
-      <input type="text"
-              onChange={handleChange}
-              name="name">
-      </input>
-      <button onClick={handleSubmit}>Login</button>
-    </div>
+    <main className="login-box">
+      <div>
+        <p>Login:</p>
+        <form>
+          <div>
+            <input type="text"
+                    onChange={handleChange}
+                    name="name">
+            </input>
+            <ArrowRightIcon onClick={handleSubmit}/>
+        </div>
+        </form>
+      </div>
+    </main>
   )
 }
 

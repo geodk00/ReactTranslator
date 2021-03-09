@@ -1,0 +1,45 @@
+header {
+    font-family: 'Love Ya Like A Sister', cursive;
+    border-bottom: 2px solid #E7B355;
+    background-color: #FFC75F;
+    padding: 1rem;
+    display: flex;
+}
+
+header {
+    height:4.3em
+}
+
+header h1 {
+    font-size: 1.7em;
+    font-weight: lighter;
+    margin: auto;
+    margin-left: 0;
+    vertical-align: middle;
+}
+
+header img {
+    height: 4em;
+    width: 4em;
+}
+
+header .user-box {
+    margin: 0;
+    margin-left: auto;
+}
+
+header .user-box .icon {
+    display: block;
+    height: 48px;
+    width: 48px;
+}
+header .user-box a {
+    display: block;
+    margin: auto;
+}
+
+header .user-box a p {
+    margin: auto;
+    padding: 0;
+    text-align: center;
+}
