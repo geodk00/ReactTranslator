@@ -1,8 +1,9 @@
 
+/*
+  Helper functions to save and load from locaStorage
+*/
 const loadState = (key) => {
   try {
-    console.log('loading key: ' + key)
-
     const serializedState = window.localStorage.getItem(key)
     if (serializedState === null) {
       return undefined
@@ -15,9 +16,6 @@ const loadState = (key) => {
 
 const saveState = (key, state) => {
   try {
-    console.log('Saving key: ' + key)
-    console.log('Saving state: ' + state)
-
     const serializedState = JSON.stringify(state)
     window.localStorage.setItem(key, serializedState)
   } catch (err) {
@@ -34,14 +32,3 @@ const removeState = (key) => {
   }
 }
 export { saveState, loadState, removeState }
-
-/*
-import throttle from 'lodash.throttle';
-...
-store.subscribe(throttle(() => {
-  saveState({
-    todos: store.getState().todos
-  });
-}, 1000));
-
-*/
