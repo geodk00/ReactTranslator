@@ -1,11 +1,13 @@
 import { useEffect, useState } from 'react'
 import { loadState, saveState } from './utils/localstorage'
-import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom'
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 
 import LoginView from './views/LoginView'
 import TranslationView from './views/TranslationView'
 import LogoutView from './views/LogoutView'
 import ProfileView from './views/ProfileView'
+
+import HeaderComponent from './components/HeaderComponent'
 
 import './App.css'
 
@@ -73,14 +75,7 @@ function App () {
   return (
     <Router>
       <div className="App">
-        <header>
-          {user && <div className="img-overlay-wrap">
-            <img src="Logo.png" alt="Logo" className="header-logo" />
-            <img src="Splash.svg" alt="" className="underlay" />
-          </div>}
-          <h1>Lost in Translation</h1>
-          {user && <div><p>logged in as <Link to="/profile">{user}</Link></p></div>}
-        </header>
+        <HeaderComponent user={user}/>
 
         <Switch>
           <Route path="/login" >
