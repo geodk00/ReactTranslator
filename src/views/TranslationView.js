@@ -18,15 +18,15 @@ import './TranslationView.css'
 const TranslationView = (props) => {
   /* PROPS */
   const { addTranslation } = props
-  const { currentTranslation } = props
 
   /* STATE */
   const [translation, setTranslation] = useState('')
-
+  const [currentTranslation, setCurrentTranslation] = useState('')
   /* EVENT HANDLERS */
   const handleSubmit = (event) => {
     event.preventDefault()
     addTranslation(translation)
+    setCurrentTranslation(translation)
     setTranslation('')
   }
 
@@ -50,6 +50,5 @@ const TranslationView = (props) => {
 }
 
 TranslationView.propTypes = { addTranslation: PropTypes.func.isRequired }
-TranslationView.propTypes = { currentTranslation: PropTypes.string }
 
 export default ProtectedComponent(TranslationView)

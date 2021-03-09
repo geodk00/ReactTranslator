@@ -88,7 +88,7 @@ function App () {
             <ProfileView user={user} translations={translations}/>
           </Route>
           <Route path="/">
-            <TranslationView user={user} addTranslation={handleNewTranslation} currentTranslation={translations[0] || ''}/>
+            <TranslationView user={user} addTranslation={handleNewTranslation} />
           </Route>
         </Switch>
       </div>
