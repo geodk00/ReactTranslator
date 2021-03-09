@@ -26,7 +26,7 @@ const ProfileView = (props) => {
   return (
     <main className="profile-box">
       <div>
-      <Link to="/logout">Logout</Link>
+      <Link to="/">Translate</Link><Link to="/logout">Logout</Link>
         <div className="history-container">
         <ul>
           {translationsList}
