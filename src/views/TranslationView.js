@@ -25,7 +25,9 @@ const TranslationView = (props) => {
 
   /* EVENT HANDLERS */
   const handleSubmit = (event) => {
+    event.preventDefault()
     addTranslation(translation)
+    setTranslation('')
   }
 
   const handleChange = (event) => {
@@ -35,9 +37,9 @@ const TranslationView = (props) => {
   return (
     <main className="translation-box">
         <div>
-          <form>
+          <form onSubmit={handleSubmit}>
             <div>
-            <input type="text" onChange={handleChange}></input>
+            <input type="text" value={translation} onChange={handleChange}></input>
             <ArrowRightIcon onClick={handleSubmit}/>
             </div>
           </form>

@@ -26,6 +26,7 @@ const LoginView = (props) => {
 
   /* Save to localStorage before sending to '/' */
   const handleSubmit = (event) => {
+    event.preventDefault()
     saveState('user', username)
     saveState('translations', [])
     props.onLogin(username)
@@ -36,10 +37,11 @@ const LoginView = (props) => {
     <main className="login-box">
       <div>
         <p>Login:</p>
-        <form>
+        <form onSubmit={handleSubmit}>
           <div>
             <input type="text"
                     onChange={handleChange}
+                    value={username}
                     name="name">
             </input>
             <ArrowRightIcon onClick={handleSubmit}/>
